@@ -22,4 +22,12 @@ public class UpdateTest extends DBClient{
 			repo.update(bean);
 		}
 	}
+	
+	public static void main(String args[]){
+		InsertTest insert = new InsertTest("ektorp");
+		String docId = insert.docId;
+		new UpdateTest("ektorp", docId);
+		CrudBean bean = new GetTest("ektorp").get(docId);
+		System.out.println(bean.getRevision());
+	}
 }

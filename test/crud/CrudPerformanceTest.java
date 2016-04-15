@@ -2,7 +2,10 @@ package crud;
 
 import java.net.MalformedURLException;
 import java.util.Date;
+import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.ektorp.CouchDbConnector;
 import org.ektorp.CouchDbInstance;
@@ -18,7 +21,7 @@ public class CrudPerformanceTest implements Runnable{
 	public void run() {
 		for ( int i = 0; i < 100000; i++){
 			try {
-				Thread.sleep(30);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -26,17 +29,13 @@ public class CrudPerformanceTest implements Runnable{
 		}
 	}
 	public static void main(String[] args) throws MalformedURLException {
-//		Executor executor = Executors.newFixedThreadPool(400);
-//		for ( int i = 0; i <200; i++){
-//			executor.execute(new CrudTest());
-//		}
-//		Timer t = new Timer();
-//		t.scheduleAtFixedRate(new GetCount(), 0, 1000);
+		Executor executor = Executors.newFixedThreadPool(400);
+		for ( int i = 0; i <200; i++){
+			executor.execute(new CrudPerformanceTest());
+		}
+		Timer t = new Timer();
+		t.scheduleAtFixedRate(new GetCount(), 0, 1000);
 		
-		new InsertTest("ektorp");
-		new UpdateTest("ektorp", "7cdb90dbce1b4a3b9ba5b9428bc280ed");
-		CrudBean bean = new GetTest("ektorp").get("7cdb90dbce1b4a3b9ba5b9428bc280ed");
-		System.out.println(bean.getName());
 	}
 
 }
