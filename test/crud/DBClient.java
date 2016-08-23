@@ -21,7 +21,7 @@ public class DBClient {
 	
 	private void makeDbConnector(String dbName, String url){
 		CouchDbInstance dbInstance = new StdCouchDbInstance(makeClient(url));
-		db = dbInstance.createConnector("ektorp", true);
+		db = dbInstance.createConnector(dbName, true);
 	}
 	
 	private HttpClient makeClient(String url) {
